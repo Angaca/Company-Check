@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -11,6 +11,7 @@ const Map = ({ companies }) => {
     googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
   });
 
+  const center = useMemo(() => ({ lat: 51.509865, lng: -0.118092 }), []);
   const [selectedCompany, setSelectedCompany] = useState(null);
 
   const closeInfoWindow = () => {
@@ -21,7 +22,7 @@ const Map = ({ companies }) => {
   return (
     <GoogleMap
       zoom={10}
-      center={{ lat: 51.509865, lng: -0.118092 }}
+      center={center}
       mapContainerClassName="map-container"
       onClick={closeInfoWindow}
     >
@@ -36,7 +37,7 @@ const Map = ({ companies }) => {
             onClick={() => {
               setSelectedCompany(company);
             }}
-          ></Marker>
+          />
         );
       })}
       {selectedCompany && (
