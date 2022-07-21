@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { FormControl, InputLabel, Select, Tooltip } from "@mui/material";
+import {
+  FormControl,
+  IconButton,
+  InputLabel,
+  Select,
+  Tooltip,
+} from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
 const SectorFilter = ({ availableSectors, sectorFilter, setSectorFilter }) => {
@@ -22,7 +28,9 @@ const SectorFilter = ({ availableSectors, sectorFilter, setSectorFilter }) => {
   return (
     <div>
       <Tooltip title="Sector list" onClick={handleMenuClick}>
-        <FilterListIcon />
+        <IconButton>
+          <FilterListIcon />
+        </IconButton>
       </Tooltip>
       <Menu
         id="basic-menu"

@@ -8,6 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SectorFilter from "./SectorFilter";
 import FeesFilter from "./FeesFilter";
+import { IconButton, Tooltip } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
   const [tableCompanies, setTableCompanies] = useState(companies);
@@ -26,6 +28,14 @@ const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
 
     setTableCompanies(feesFiltered);
   }, [sectorFilter, fees, companies]);
+
+  const removeSectorFilter = () => {
+    setSectorFilter("All");
+  };
+
+  const removeFeesFilter = () => {
+    setFees(minMaxFees);
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -53,6 +63,14 @@ const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
                     sectorFilter={sectorFilter}
                     setSectorFilter={setSectorFilter}
                   />
+                  <Tooltip title="Remove filter" onClick={removeSectorFilter}>
+                    <IconButton
+                      aria-label="delete"
+                      disabled={sectorFilter === "All"}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
                 </h3>
               </TableCell>
               <TableCell>
@@ -63,6 +81,16 @@ const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
                     fees={fees}
                     setFees={setFees}
                   />
+                  <Tooltip title="Remove filter" onClick={removeFeesFilter}>
+                    <IconButton
+                      aria-label="delete"
+                      disabled={
+                        fees[0] === minMaxFees[0] && fees[1] === minMaxFees[1]
+                      }
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
                 </h3>
               </TableCell>
             </TableRow>

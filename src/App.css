@@ -26,4 +26,5 @@
 
 .head-with-filter {
   display: inline-flex;
+  align-items: center;
 }

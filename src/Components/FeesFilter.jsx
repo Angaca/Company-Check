@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Box, FormControl, Slider, Tooltip } from "@mui/material";
+import { Box, FormControl, IconButton, Slider, Tooltip } from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
 const FeesFilter = ({ minMaxFees, fees, setFees }) => {
@@ -22,7 +22,9 @@ const FeesFilter = ({ minMaxFees, fees, setFees }) => {
   return (
     <div>
       <Tooltip title="Fees range" onClick={handleMenuClick}>
-        <FilterListIcon />
+        <IconButton>
+          <FilterListIcon />
+        </IconButton>
       </Tooltip>
       <Menu
         id="basic-menu"
