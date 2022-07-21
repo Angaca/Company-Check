@@ -1,9 +1,5 @@
-.App {
-  text-align: center;
-}
-
 .map-container {
-  height: 100vh;
+  height: 90vh;
   width: 100%;
 }
 
@@ -16,4 +12,9 @@
 
 .info-title {
   border-bottom: 1px solid #1876d1;
+}
+
+.logo-img {
+  height: 50px;
+  margin-right: 10px;
 }

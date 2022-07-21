@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Map from "./Components/Map";
+import Nav from "./Components/Nav";
 
 function App() {
   const [companies, setCompanies] = useState([]);
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+      <Nav />
       <Map companies={companies} />
     </div>
   );
