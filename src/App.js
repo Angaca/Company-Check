@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Map from "./Components/Map";
 import Nav from "./Components/Nav";
+import CompaniesTable from "./Components/CompaniesTable";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [companies, setCompanies] = useState([]);
@@ -18,7 +20,10 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      <Map companies={companies} />
+      <Routes>
+        <Route path="/" element={<Map companies={companies} />} />
+        <Route path="/table" element={<CompaniesTable />} />
+      </Routes>
     </div>
   );
 }
