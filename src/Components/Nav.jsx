@@ -13,10 +13,14 @@ const Nav = () => {
         <Toolbar>
           <img className="logo-img" src={logo} alt="CC Logo" />
           <Typography variant="h6" component="div" sx={{ marginRight: 4 }}>
-            <Link to="/">Map</Link>
+            <Link className="nav-link" to="/">
+              Map
+            </Link>
           </Typography>
           <Typography variant="h6" component="div">
-            <Link to="/table">Table</Link>
+            <Link className="nav-link" to="/table">
+              Table
+            </Link>
           </Typography>
         </Toolbar>
       </AppBar>
