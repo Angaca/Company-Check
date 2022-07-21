@@ -5,15 +5,18 @@ import Map from "./Components/Map";
 import Nav from "./Components/Nav";
 import CompaniesTable from "./Components/CompaniesTable";
 import { Route, Routes } from "react-router-dom";
+import { getAvailableSectors } from "./utils";
 
 function App() {
   const [companies, setCompanies] = useState([]);
+  const [availableSectors, setAvailableSectors] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://run.mocky.io/v3/7cb595ed-2882-4dc7-8179-d38d0b9c9d13")
       .then(({ data: companies }) => {
         setCompanies(companies);
+        setAvailableSectors(getAvailableSectors(companies));
       });
   }, []);
 
@@ -24,7 +27,12 @@ function App() {
         <Route path="/" element={<Map companies={companies} />} />
         <Route
           path="/table"
-          element={<CompaniesTable companies={companies} />}
+          element={
+            <CompaniesTable
+              companies={companies}
+              availableSectors={availableSectors}
+            />
+          }
         />
       </Routes>
     </div>
