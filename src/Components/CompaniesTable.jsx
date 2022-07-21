@@ -15,6 +15,7 @@ const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
   const [tableCompanies, setTableCompanies] = useState(companies);
   const [sectorFilter, setSectorFilter] = useState("All");
   const [fees, setFees] = useState(minMaxFees);
+  const [sortByFees, setSortByFees] = useState(true);
 
   useEffect(() => {
     const sectorFiltered =
@@ -35,6 +36,19 @@ const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
 
   const removeFeesFilter = () => {
     setFees(minMaxFees);
+  };
+
+  const sortCompanies = () => {
+    const tempCompanies = [...tableCompanies];
+
+    tempCompanies.sort((companyA, companyB) => {
+      return sortByFees
+        ? companyA.fees.amount - companyB.fees.amount
+        : companyB.fees.amount - companyA.fees.amount;
+    });
+    setSortByFees((currentSort) => !currentSort);
+
+    setTableCompanies(tempCompanies);
   };
 
   return (
@@ -63,14 +77,15 @@ const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
                     sectorFilter={sectorFilter}
                     setSectorFilter={setSectorFilter}
                   />
-                  <Tooltip title="Remove filter" onClick={removeSectorFilter}>
-                    <IconButton
-                      aria-label="delete"
-                      disabled={sectorFilter === "All"}
-                    >
+                  <IconButton
+                    aria-label="delete"
+                    disabled={sectorFilter === "All"}
+                    onClick={removeSectorFilter}
+                  >
+                    <Tooltip title="Remove filter">
                       <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
+                    </Tooltip>
+                  </IconButton>
                 </h3>
               </TableCell>
               <TableCell>
@@ -80,17 +95,20 @@ const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
                     minMaxFees={minMaxFees}
                     fees={fees}
                     setFees={setFees}
+                    sortCompanies={sortCompanies}
+                    sortByFees={sortByFees}
                   />
-                  <Tooltip title="Remove filter" onClick={removeFeesFilter}>
-                    <IconButton
-                      aria-label="delete"
-                      disabled={
-                        fees[0] === minMaxFees[0] && fees[1] === minMaxFees[1]
-                      }
-                    >
+                  <IconButton
+                    aria-label="delete"
+                    disabled={
+                      fees[0] === minMaxFees[0] && fees[1] === minMaxFees[1]
+                    }
+                    onClick={removeFeesFilter}
+                  >
+                    <Tooltip title="Remove filter">
                       <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
+                    </Tooltip>
+                  </IconButton>
                 </h3>
               </TableCell>
             </TableRow>

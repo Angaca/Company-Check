@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Box, FormControl, IconButton, Slider, Tooltip } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  IconButton,
+  Slider,
+  TableSortLabel,
+  Tooltip,
+} from "@mui/material";
 import FilterListIcon from "@mui/icons-material/FilterList";
 
-const FeesFilter = ({ minMaxFees, fees, setFees }) => {
+const FeesFilter = ({
+  minMaxFees,
+  fees,
+  setFees,
+  sortCompanies,
+  sortByFees,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
@@ -33,6 +46,10 @@ const FeesFilter = ({ minMaxFees, fees, setFees }) => {
         onClose={handleMenuClose}
       >
         <MenuItem disabled>Fees range</MenuItem>
+        <MenuItem onClick={sortCompanies}>
+          Order
+          <TableSortLabel direction={sortByFees ? "desc" : "asc"} active />
+        </MenuItem>
         <MenuItem>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
             <Box sx={{ width: 150, marginRight: 2, marginLeft: 2 }}>
