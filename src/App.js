@@ -14,11 +14,9 @@ function App() {
       });
   }, []);
 
-  console.log(companies);
-
   return (
     <div className="App">
-      <Map />
+      <Map companies={companies} />
     </div>
   );
 }
