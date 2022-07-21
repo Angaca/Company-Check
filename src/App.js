@@ -22,7 +22,10 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Map companies={companies} />} />
-        <Route path="/table" element={<CompaniesTable />} />
+        <Route
+          path="/table"
+          element={<CompaniesTable companies={companies} />}
+        />
       </Routes>
     </div>
   );
