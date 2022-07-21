@@ -5,11 +5,12 @@ import Map from "./Components/Map";
 import Nav from "./Components/Nav";
 import CompaniesTable from "./Components/CompaniesTable";
 import { Route, Routes } from "react-router-dom";
-import { getAvailableSectors } from "./utils";
+import { getAvailableSectors, getMinAndMaxFees } from "./utils";
 
 function App() {
   const [companies, setCompanies] = useState([]);
   const [availableSectors, setAvailableSectors] = useState([]);
+  const [minMaxFees, setMinMaxFees] = useState([]);
 
   useEffect(() => {
     axios
@@ -17,6 +18,7 @@ function App() {
       .then(({ data: companies }) => {
         setCompanies(companies);
         setAvailableSectors(getAvailableSectors(companies));
+        setMinMaxFees(getMinAndMaxFees(companies));
       });
   }, []);
 
@@ -31,6 +33,7 @@ function App() {
             <CompaniesTable
               companies={companies}
               availableSectors={availableSectors}
+              minMaxFees={minMaxFees}
             />
           }
         />

@@ -7,13 +7,25 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import SectorFilter from "./SectorFilter";
+import FeesFilter from "./FeesFilter";
 
-const CompaniesTable = ({ companies, availableSectors }) => {
-  const [tableCompanies, setTableCompanies] = useState([]);
+const CompaniesTable = ({ companies, availableSectors, minMaxFees }) => {
+  const [tableCompanies, setTableCompanies] = useState(companies);
+  const [sectorFilter, setSectorFilter] = useState("All");
+  const [fees, setFees] = useState(minMaxFees);
 
   useEffect(() => {
-    setTableCompanies(companies);
-  }, [companies]);
+    const sectorFiltered =
+      sectorFilter === "All"
+        ? [...companies]
+        : companies.filter(({ sector }) => sector === sectorFilter);
+
+    const feesFiltered = sectorFiltered.filter(
+      ({ fees: { amount } }) => amount > fees[0] && amount < fees[1]
+    );
+
+    setTableCompanies(feesFiltered);
+  }, [sectorFilter, fees, companies]);
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -37,14 +49,21 @@ const CompaniesTable = ({ companies, availableSectors }) => {
                 <h3 className="head-with-filter">
                   Sector
                   <SectorFilter
-                    companies={companies}
-                    setTableCompanies={setTableCompanies}
                     availableSectors={availableSectors}
+                    sectorFilter={sectorFilter}
+                    setSectorFilter={setSectorFilter}
                   />
                 </h3>
               </TableCell>
               <TableCell>
-                <h3>Fees</h3>
+                <h3 className="head-with-filter">
+                  Fees
+                  <FeesFilter
+                    minMaxFees={minMaxFees}
+                    fees={fees}
+                    setFees={setFees}
+                  />
+                </h3>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -56,7 +75,9 @@ const CompaniesTable = ({ companies, availableSectors }) => {
                 <TableCell>{company.stockSymbol}</TableCell>
                 <TableCell>{company.address}</TableCell>
                 <TableCell>{company.sector}</TableCell>
-                <TableCell>{`${company.fees.amount} ${company.fees.currency}`}</TableCell>
+                <TableCell>
+                  {company.fees.amount} {company.fees.currency}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
