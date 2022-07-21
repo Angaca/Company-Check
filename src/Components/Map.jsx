@@ -49,11 +49,17 @@ const Map = ({ companies }) => {
           onCloseClick={closeInfoWindow}
         >
           <div className="info-window">
-            <h3>
-              Name: {selectedCompany.company} ({selectedCompany.stockSymbol})
+            <h3 className="info-title">
+              <b>
+                Name: {selectedCompany.company} ({selectedCompany.stockSymbol})
+              </b>
             </h3>
             <h4>Sector: {selectedCompany.sector}</h4>
             <h4>Address: {selectedCompany.address}</h4>
+            <h4>
+              Fees: {selectedCompany.fees.amount}{" "}
+              {selectedCompany.fees.currency}
+            </h4>
             <h5>ID: {selectedCompany.id}</h5>
           </div>
         </InfoWindow>
